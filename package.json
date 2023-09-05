@@ -19,5 +19,8 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "prisma": "npx prisma"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2"
   }
 }

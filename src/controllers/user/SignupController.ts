@@ -1,23 +1,27 @@
 import { Response, Request } from "express";
 import { prismaClient } from "../../database/prismaClient";
 import { validationResult } from "express-validator/src/validation-result";
-import bcryptjs, { hash, compare } from "bcryptjs";
+import { hash } from "bcryptjs";
+import IUser from "../../interfaces/userInterface";
 
 export class SignupController {
-  async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response): Promise<void> {
     try {
       const { name, email, cellphone, password } = req.body;
       const errors = validationResult(req);
-      console.log(errors);
+
       if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        res.status(400).json({ errors: errors.array() });
+        return;
       }
 
-      const userAlreadyExists = await prismaClient.user.findFirst({
-        where: {
-          email: email,
-        },
-      });
+      const userAlreadyExists: IUser | null = await prismaClient.user.findFirst(
+        {
+          where: {
+            email: email,
+          },
+        }
+      );
 
       if (userAlreadyExists) {
         res.status(422).json({
@@ -31,7 +35,7 @@ export class SignupController {
 
       const hashedPassword = await hash(password, 8);
 
-      const user = await prismaClient.user.create({
+      const user: IUser | null = await prismaClient.user.create({
         data: {
           name,
           email,
@@ -45,7 +49,9 @@ export class SignupController {
         .json({ message: "Usuário criado com sucesso!", user: user });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Erro interno no servidor." });
+      res
+        .status(500)
+        .json({ error: [{ message: "Erro interno no servidor." }] });
     }
   }
 }
