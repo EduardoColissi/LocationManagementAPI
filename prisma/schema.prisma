@@ -14,8 +14,34 @@ model User {
   cellphone String @db.VarChar(100)
   email     String @unique @db.VarChar(100)
   password  String @db.VarChar(100)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  properties Property[]
 
   @@map("users")
+}
+
+model Property {
+  id            Int @id @default(autoincrement())
+  description   String @db.VarChar(300)
+  street        String @db.VarChar(160)
+  number        Int @db.Int
+  complement    String @db.VarChar(160)
+  neighborhood  String @db.VarChar(160)
+  city          String @db.VarChar(160)
+  state         String @db.VarChar(160)
+  country       String @db.VarChar(160)
+  zip_code      String @db.VarChar(8)
+  house         Boolean
+  apartment     Boolean
+  rooms         Int
+  pet_friendly  Boolean
+  bed_linen     Boolean
+  towels        Boolean
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  user_id       Int
+  user          User @relation(fields: [user_id], references: [id])
+
+  @@map("properties")
 }

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../../database/prismaClient";
-import { validationResult } from "express-validator/src/validation-result";
 import bcryptjs from "bcryptjs";
 import IUser from "../../interfaces/userInterface";
 import { sign } from "jsonwebtoken";
@@ -32,7 +31,7 @@ export class LoginController {
     }
 
     const token = sign({ id: user.id }, process.env.JWT_KEY as string, {
-      expiresIn: "1d",
+      // expiresIn: "1d",
     });
 
     res
