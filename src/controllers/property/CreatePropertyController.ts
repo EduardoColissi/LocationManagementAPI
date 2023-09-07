@@ -15,7 +15,7 @@ export class CreatePropertyController {
         return;
       }
 
-      const id = req.user.id;
+      const user_id = req.user.id;
 
       const {
         description,
@@ -59,7 +59,7 @@ export class CreatePropertyController {
           pet_friendly,
           bed_linen,
           towels,
-          user_id: id,
+          user_id: user_id,
         },
       });
 
@@ -70,7 +70,11 @@ export class CreatePropertyController {
       console.log(error);
       res
         .status(500)
-        .json({ error: [{ message: "Erro interno no servidor." }] });
+        .json({
+          error: [
+            { message: "Erro interno no servidor ao criar propriedade." },
+          ],
+        });
     }
   }
 }

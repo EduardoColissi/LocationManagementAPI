@@ -8,10 +8,12 @@ import { propertyValidator } from "./middlewares/validators/propertyValidator";
 import { SignupController } from "./controllers/user/SignupController";
 import { LoginController } from "./controllers/user/LoginController";
 import { CreatePropertyController } from "./controllers/property/CreatePropertyController";
+import { DeletePropertyController } from "./controllers/property/DeletePropertyController";
 
 const signup = new SignupController();
 const login = new LoginController();
 const createProperty = new CreatePropertyController();
+const deleteProperty = new DeletePropertyController();
 
 const routes = Router();
 
@@ -21,5 +23,6 @@ routes.post("/login", login.handle);
 routes.use(auth);
 
 routes.post("/property", propertyValidator, createProperty.handle);
+routes.delete("/property/:id", deleteProperty.handle);
 
 export default routes;
