@@ -21,12 +21,13 @@ export class GetAllPropertiesController {
         },
       });
 
-      res
-        .status(200)
-        .json({
-          message: `Encontramos um total de ${properties.length} imóveis.`,
-          properties,
-        });
+      res.status(properties.length > 0 ? 200 : 204).json({
+        message:
+          properties.length > 0
+            ? `${properties.length} imóveis encontrados.`
+            : "Nenhum imóvel encontrado.",
+        properties,
+      });
     } catch (error) {
       res
         .status(500)
