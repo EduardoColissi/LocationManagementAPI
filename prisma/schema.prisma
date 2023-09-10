@@ -17,6 +17,9 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   properties Property[]
+  periods Periods[]
+  prices Prices[]
+  locations Locations[]
 
   @@map("users")
 }
@@ -42,6 +45,56 @@ model Property {
   updated_at    DateTime @updatedAt
   user_id       Int
   user          User @relation(fields: [user_id], references: [id])
+  locations     Locations[]
 
   @@map("properties")
+}
+
+model Periods {
+  id       Int @id @default(autoincrement())
+  start_date DateTime
+  end_date DateTime
+  description String @db.VarChar(300)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  prices Prices[]
+
+  @@map("periods")
+}
+
+model Prices {
+  id      Int @id @default(autoincrement())
+  price   Float
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  period_id Int
+  location_id Int
+  user_id Int
+  period Periods @relation(fields: [period_id], references: [id])
+  location Locations @relation(fields: [location_id], references: [id])
+  user User @relation(fields: [user_id], references: [id])
+
+  @@map("prices")
+}
+
+model Locations {
+  id     Int @id @default(autoincrement())
+  start_date DateTime
+  end_date DateTime
+  price_per_day Float
+  descount Float
+  additional_cost Float
+  observations String @db.VarChar(300)
+  total Float
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  property_id Int
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  property Property @relation(fields: [property_id], references: [id])
+  prices Prices[]
+
+  @@map("locations")
 }
