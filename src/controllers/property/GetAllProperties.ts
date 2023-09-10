@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../../database/prismaClient";
 
-export class GetByIdPropertyController {
+export class GetAllProperties {
   async handle(req: Request, res: Response): Promise<void> {
     try {
       if (!req.user) {
@@ -13,22 +13,23 @@ export class GetByIdPropertyController {
         return;
       }
 
-      const user_id = Number(req.user.id);
-      const property_id = Number(req.params.id);
+      const user_id = req.user.id;
 
-      const property = await prismaClient.property.findUnique({
+      const properties = await prismaClient.property.findMany({
         where: {
-          id: property_id,
           user_id: user_id,
+        },
+        include: {
+          user: true,
         },
       });
 
-      res.status(property != null ? 200 : 204).json({
+      res.status(properties.length > 0 ? 200 : 204).json({
         message:
-          property != null
-            ? `Imóvel encontrado com sucesso!`
-            : "Imóvel não encontrado.",
-        property: property,
+          properties.length > 0
+            ? `${properties.length} imóveis encontrados.`
+            : "Nenhum imóvel encontrado.",
+        properties,
       });
     } catch (error) {
       res

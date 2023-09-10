@@ -3,7 +3,7 @@ import { prismaClient } from "../../database/prismaClient";
 import { validationResult } from "express-validator/src/validation-result";
 import IProperty from "../../interfaces/propertyInterface";
 
-export class CreatePropertyController {
+export class EditProperty {
   async handle(req: Request, res: Response): Promise<void> {
     try {
       if (!req.user) {
@@ -15,7 +15,8 @@ export class CreatePropertyController {
         return;
       }
 
-      const user_id = req.user.id;
+      const user_id = Number(req.user.id);
+      const property_id = Number(req.params.id);
 
       const {
         description,
@@ -42,7 +43,11 @@ export class CreatePropertyController {
         return;
       }
 
-      const property: IProperty | null = await prismaClient.property.create({
+      const property: IProperty | null = await prismaClient.property.update({
+        where: {
+          id: property_id,
+          user_id: user_id,
+        },
         data: <IProperty>{
           description,
           street,
@@ -63,18 +68,15 @@ export class CreatePropertyController {
         },
       });
 
-      res
-        .status(201)
-        .json({ message: "Imóvel criado com sucesso!", property: property });
+      res.status(201).json({
+        message: "Imóvel atualizado com sucesso!",
+        property: property,
+      });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({
-          error: [
-            { message: "Erro interno no servidor ao criar propriedade." },
-          ],
-        });
+        .json({ error: [{ message: "Erro interno no servidor." }] });
     }
   }
 }

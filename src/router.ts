@@ -2,24 +2,24 @@ import { Router } from "express";
 
 import auth from "./middlewares/auth";
 
-import { userValidator } from "./middlewares/validators/userValidator";
 import { propertyValidator } from "./middlewares/validators/propertyValidator";
+import { userValidator } from "./middlewares/validators/userValidator";
 
-import { SignupController } from "./controllers/user/SignupController";
+import { CreateProperty } from "./controllers/property/CreateProperty";
+import { DeleteProperty } from "./controllers/property/DeleteProperty";
+import { EditProperty } from "./controllers/property/EditProperty";
+import { GetAllProperties } from "./controllers/property/GetAllProperties";
+import { GetByIdProperty } from "./controllers/property/GetByIdProperty";
 import { LoginController } from "./controllers/user/LoginController";
-import { CreatePropertyController } from "./controllers/property/CreatePropertyController";
-import { DeletePropertyController } from "./controllers/property/DeletePropertyController";
-import { GetAllPropertiesController } from "./controllers/property/GetAllPropertiesController";
-import { GetByIdPropertyController } from "./controllers/property/GetByIdPropertyController";
-import { EditPropertyController } from "./controllers/property/EditPropertyController";
+import { SignupController } from "./controllers/user/SignupController";
 
 const signup = new SignupController();
 const login = new LoginController();
-const createProperty = new CreatePropertyController();
-const deleteProperty = new DeletePropertyController();
-const getAllProperties = new GetAllPropertiesController();
-const getByIdProperty = new GetByIdPropertyController();
-const editProperty = new EditPropertyController();
+const createProperty = new CreateProperty();
+const deleteProperty = new DeleteProperty();
+const getAllProperties = new GetAllProperties();
+const getByIdProperty = new GetByIdProperty();
+const editProperty = new EditProperty();
 
 const routes = Router();
 
