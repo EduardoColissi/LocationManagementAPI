@@ -3,7 +3,7 @@ import { prismaClient } from "../../database/prismaClient";
 import { validationResult } from "express-validator/src/validation-result";
 import IPeriod from "../../interfaces/periodInterface";
 
-export class CreatePeriod {
+export class EditPeriod {
   async handle(req: Request, res: Response): Promise<void> {
     try {
       if (!req.user) {
@@ -15,7 +15,8 @@ export class CreatePeriod {
         return;
       }
 
-      const user_id = req.user.id;
+      const user_id = Number(req.user.id);
+      const period_id = Number(req.params.id);
 
       const { start_date, end_date, description, one_day } = req.body;
 
@@ -33,13 +34,17 @@ export class CreatePeriod {
         user_id: user_id,
       };
 
-      const period: IPeriod | null = await prismaClient.period.create({
+      const period: IPeriod | null = await prismaClient.period.update({
+        where: {
+          id: period_id,
+          user_id: user_id,
+        },
         data: <IPeriod>data,
       });
 
       res
         .status(201)
-        .json({ message: "Período criado com sucesso!", period: period });
+        .json({ message: "Período atualizado com sucesso!", period: period });
     } catch (error) {
       console.log(error);
       res.status(500).json({

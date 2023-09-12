@@ -17,9 +17,9 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   properties Property[]
-  periods Periods[]
-  prices Prices[]
-  locations Locations[]
+  periods Period[]
+  prices Price[]
+  locations Location[]
 
   @@map("users")
 }
@@ -45,12 +45,12 @@ model Property {
   updated_at    DateTime @updatedAt
   user_id       Int
   user          User @relation(fields: [user_id], references: [id])
-  locations     Locations[]
+  locations     Location[]
 
   @@map("properties")
 }
 
-model Periods {
+model Period {
   id       Int @id @default(autoincrement())
   start_date DateTime
   end_date DateTime
@@ -59,12 +59,12 @@ model Periods {
   updated_at DateTime @updatedAt
   user_id Int
   user User @relation(fields: [user_id], references: [id])
-  prices Prices[]
+  prices Price[]
 
   @@map("periods")
 }
 
-model Prices {
+model Price {
   id      Int @id @default(autoincrement())
   price   Float
   created_at DateTime @default(now())
@@ -72,14 +72,14 @@ model Prices {
   period_id Int
   location_id Int
   user_id Int
-  period Periods @relation(fields: [period_id], references: [id])
-  location Locations @relation(fields: [location_id], references: [id])
+  period Period @relation(fields: [period_id], references: [id])
+  location Location @relation(fields: [location_id], references: [id])
   user User @relation(fields: [user_id], references: [id])
 
   @@map("prices")
 }
 
-model Locations {
+model Location {
   id     Int @id @default(autoincrement())
   start_date DateTime
   end_date DateTime
@@ -94,7 +94,7 @@ model Locations {
   user_id Int
   user User @relation(fields: [user_id], references: [id])
   property Property @relation(fields: [property_id], references: [id])
-  prices Prices[]
+  prices Price[]
 
   @@map("locations")
 }

@@ -13,13 +13,13 @@ export class DeleteProperty {
         return;
       }
 
-      const user_id = req.user.id;
+      const user_id = Number(req.user.id);
 
-      const { id } = req.params;
+      const property_id = Number(req.params.id);
 
       const deletedProperty = await prismaClient.property.delete({
         where: {
-          id: Number(id),
+          id: property_id,
           user_id: user_id,
         },
       });

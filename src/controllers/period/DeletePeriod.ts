@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../../database/prismaClient";
 
-export class GetAllProperties {
+export class DeletePeriod {
   async handle(req: Request, res: Response): Promise<void> {
     try {
       if (!req.user) {
@@ -13,20 +13,19 @@ export class GetAllProperties {
         return;
       }
 
-      const user_id = req.user.id;
+      const user_id = Number(req.user.id);
 
-      const properties = await prismaClient.property.findMany({
+      const period_id = Number(req.params.id);
+
+      const deletedPeriod = await prismaClient.period.delete({
         where: {
+          id: period_id,
           user_id: user_id,
         },
       });
 
-      res.status(properties.length > 0 ? 200 : 204).json({
-        message:
-          properties.length > 0
-            ? `${properties.length} imóveis encontrados.`
-            : "Nenhum imóvel encontrado.",
-        properties,
+      res.status(200).json({
+        message: `Período ID ${deletedPeriod.id} deletado com sucesso!`,
       });
     } catch (error) {
       res

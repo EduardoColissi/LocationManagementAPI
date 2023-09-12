@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../../database/prismaClient";
 
-export class GetAllProperties {
+export class GetAllPeriods {
   async handle(req: Request, res: Response): Promise<void> {
     try {
       if (!req.user) {
@@ -15,18 +15,18 @@ export class GetAllProperties {
 
       const user_id = req.user.id;
 
-      const properties = await prismaClient.property.findMany({
+      const periods = await prismaClient.period.findMany({
         where: {
           user_id: user_id,
         },
       });
 
-      res.status(properties.length > 0 ? 200 : 204).json({
+      res.status(periods.length > 0 ? 200 : 204).json({
         message:
-          properties.length > 0
-            ? `${properties.length} imóveis encontrados.`
-            : "Nenhum imóvel encontrado.",
-        properties,
+          periods.length > 0
+            ? `${periods.length} períodos encontrados.`
+            : "Nenhum período encontrado.",
+        periods,
       });
     } catch (error) {
       res

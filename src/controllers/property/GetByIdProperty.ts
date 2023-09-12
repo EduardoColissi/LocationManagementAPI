@@ -21,9 +21,6 @@ export class GetByIdProperty {
           id: property_id,
           user_id: user_id,
         },
-        include: {
-          user: true,
-        },
       });
 
       res.status(property != null ? 200 : 204).json({
