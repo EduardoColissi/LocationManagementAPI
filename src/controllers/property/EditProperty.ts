@@ -76,7 +76,7 @@ export class EditProperty {
       console.log(error);
       res
         .status(500)
-        .json({ error: [{ message: "Erro interno no servidor." }] });
+        .json({ errors: [{ message: "Erro interno no servidor." }] });
     }
   }
 }

@@ -69,7 +69,7 @@ export class CreateProperty {
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        error: [{ message: "Erro interno no servidor ao criar propriedade." }],
+        errors: [{ message: "Erro interno no servidor ao criar propriedade." }],
       });
     }
   }

@@ -18,6 +18,7 @@ import { EditPeriod } from "./controllers/period/EditPeriod";
 import { GetAllPeriods } from "./controllers/period/GetAllPeriods";
 import { GetByIdPeriod } from "./controllers/period/GetByIdPeriod";
 import { DeletePeriod } from "./controllers/period/DeletePeriod";
+import { CreateLocation } from "./controllers/location/CreateLocation";
 
 const signup = new SignupController();
 const login = new LoginController();
@@ -31,6 +32,7 @@ const editPeriod = new EditPeriod();
 const getAllPeriods = new GetAllPeriods();
 const getByIdPeriod = new GetByIdPeriod();
 const deletePeriod = new DeletePeriod();
+const createLocation = new CreateLocation();
 
 const routes = Router();
 
@@ -50,5 +52,7 @@ routes.put("/period/:id", periodValidator, editPeriod.handle);
 routes.delete("/period/:id", deletePeriod.handle);
 routes.get("/periods", getAllPeriods.handle);
 routes.get("/period/:id", getByIdPeriod.handle);
+
+routes.post("/location", createLocation.handle);
 
 export default routes;

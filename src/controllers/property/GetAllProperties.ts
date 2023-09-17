@@ -31,7 +31,7 @@ export class GetAllProperties {
     } catch (error) {
       res
         .status(500)
-        .json({ error: [{ message: "Erro interno de servidor. " }] });
+        .json({ errors: [{ message: "Erro interno de servidor. " }] });
     }
   }
 }
