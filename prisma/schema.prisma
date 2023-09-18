@@ -44,7 +44,7 @@ model Property {
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
   user_id       Int
-  user          User @relation(fields: [user_id], references: [id])
+  user          User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   locations     Location[]
 
   @@map("properties")
@@ -58,7 +58,7 @@ model Period {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   user_id Int
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   prices Price[]
 
   @@map("periods")
@@ -73,8 +73,8 @@ model Price {
   location_id Int
   user_id Int
   period Period @relation(fields: [period_id], references: [id])
-  location Location @relation(fields: [location_id], references: [id])
-  user User @relation(fields: [user_id], references: [id])
+  location Location @relation(fields: [location_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("prices")
 }
@@ -92,7 +92,7 @@ model Location {
   updated_at DateTime @updatedAt
   property_id Int
   user_id Int
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   property Property @relation(fields: [property_id], references: [id])
   prices Price[]
 

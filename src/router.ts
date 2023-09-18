@@ -19,6 +19,10 @@ import { GetAllPeriods } from "./controllers/period/GetAllPeriods";
 import { GetByIdPeriod } from "./controllers/period/GetByIdPeriod";
 import { DeletePeriod } from "./controllers/period/DeletePeriod";
 import { CreateLocation } from "./controllers/location/CreateLocation";
+import { DeleteLocation } from "./controllers/location/DeleteLocation";
+import { GetAllLocations } from "./controllers/location/GetAllLocations";
+import { GetByIdLocation } from "./controllers/location/GetByIdLocation";
+import { EditLocation } from "./controllers/location/EditLocation";
 
 const signup = new SignupController();
 const login = new LoginController();
@@ -33,6 +37,10 @@ const getAllPeriods = new GetAllPeriods();
 const getByIdPeriod = new GetByIdPeriod();
 const deletePeriod = new DeletePeriod();
 const createLocation = new CreateLocation();
+const deleteLocation = new DeleteLocation();
+const getAllLocations = new GetAllLocations();
+const getByIdLocation = new GetByIdLocation();
+const editLocation = new EditLocation();
 
 const routes = Router();
 
@@ -54,5 +62,9 @@ routes.get("/periods", getAllPeriods.handle);
 routes.get("/period/:id", getByIdPeriod.handle);
 
 routes.post("/location", createLocation.handle);
+routes.put("/location/:id", editLocation.handle);
+routes.delete("/location/:id", deleteLocation.handle);
+routes.get("/locations/:id", getAllLocations.handle);
+routes.get("/location/:id", getByIdLocation.handle);
 
 export default routes;
