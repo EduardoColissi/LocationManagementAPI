@@ -24,6 +24,8 @@ export class DeletePeriod {
         },
       });
 
+      console.log(deletedPeriod);
+
       res.status(200).json({
         message: `Período ID ${deletedPeriod.id} deletado com sucesso!`,
       });

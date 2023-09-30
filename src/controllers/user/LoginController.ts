@@ -34,6 +34,8 @@ export class LoginController {
       // expiresIn: "1d",
     });
 
+    console.log(user);
+
     res
       .status(200)
       .json({ message: "Bem-vindo(a) de volta!", token: token, user: user });

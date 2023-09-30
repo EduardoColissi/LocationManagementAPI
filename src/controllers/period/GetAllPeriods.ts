@@ -14,10 +14,14 @@ export class GetAllPeriods {
       }
 
       const user_id = req.user.id;
+      const { searchDescription } = req.query;
 
       const periods = await prismaClient.period.findMany({
         where: {
           user_id: user_id,
+          description: {
+            contains: String(searchDescription),
+          },
         },
       });
 
