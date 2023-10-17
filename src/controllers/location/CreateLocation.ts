@@ -19,6 +19,7 @@ export class CreateLocation {
       const user_id = Number(req.user.id);
 
       const {
+        renter,
         start_date,
         end_date,
         price_per_day,
@@ -39,14 +40,15 @@ export class CreateLocation {
 
       const location = await prismaClient.location.create({
         data: <ILocation>{
+          renter,
           start_date,
           end_date,
           price_per_day,
-          descount,
-          additional_cost,
+          descount: Number(descount),
+          additional_cost: Number(additional_cost),
           observations,
           total,
-          property_id,
+          property_id: Number(property_id),
           user_id,
         },
       });

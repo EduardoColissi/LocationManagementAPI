@@ -20,6 +20,7 @@ export class EditLocation {
       const location_id = Number(req.params.id);
 
       const {
+        renter,
         start_date,
         end_date,
         price_per_day,
@@ -44,14 +45,16 @@ export class EditLocation {
           user_id: user_id,
         },
         data: <ILocation>{
+          renter,
           start_date,
           end_date,
           price_per_day,
-          descount,
-          additional_cost,
+          descount: descount,
+          additional_cost: additional_cost,
           observations,
           total,
-          property_id,
+          property_id: property_id,
+          user_id,
         },
       });
 
@@ -60,10 +63,10 @@ export class EditLocation {
           await prismaClient.price.update({
             where: {
               id: price.id,
-              location_id: location.id,
+              location_id: location_id,
             },
             data: <IPrice>{
-              location_id: location.id,
+              location_id: location_id,
               period_id: price.period_id,
               price: price.price,
               user_id: user_id,

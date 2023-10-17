@@ -7,7 +7,6 @@ export default interface IProperty {
   neighborhood: string;
   city: string;
   state: string;
-  country: string;
   zip_code: string;
   house: boolean;
   apartment: boolean;
@@ -15,6 +14,7 @@ export default interface IProperty {
   pet_friendly: boolean;
   bed_linen: boolean;
   towels: boolean;
+  comission: number;
   created_at: Date;
   updated_at: Date;
   user_id: number;

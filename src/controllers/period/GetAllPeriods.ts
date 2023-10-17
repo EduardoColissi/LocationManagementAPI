@@ -19,9 +19,13 @@ export class GetAllPeriods {
       const periods = await prismaClient.period.findMany({
         where: {
           user_id: user_id,
-          description: {
-            contains: String(searchDescription),
-          },
+          AND: [
+            {
+              description: {
+                contains: String(searchDescription),
+              },
+            },
+          ],
         },
       });
 

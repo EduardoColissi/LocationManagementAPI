@@ -25,7 +25,6 @@ export class CreateProperty {
         neighborhood,
         city,
         state,
-        country,
         zip_code,
         house,
         apartment,
@@ -33,6 +32,7 @@ export class CreateProperty {
         pet_friendly,
         bed_linen,
         towels,
+        comission,
       } = req.body;
 
       const errors = validationResult(req);
@@ -51,7 +51,6 @@ export class CreateProperty {
           neighborhood,
           city,
           state,
-          country,
           zip_code,
           house,
           apartment,
@@ -59,6 +58,7 @@ export class CreateProperty {
           pet_friendly,
           bed_linen,
           towels,
+          comission,
           user_id: user_id,
         },
       });

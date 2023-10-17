@@ -14,10 +14,18 @@ export class GetAllProperties {
       }
 
       const user_id = req.user.id;
+      const { searchDescription } = req.query;
 
       const properties = await prismaClient.property.findMany({
         where: {
           user_id: user_id,
+          AND: [
+            {
+              description: {
+                contains: String(searchDescription),
+              },
+            },
+          ],
         },
       });
 

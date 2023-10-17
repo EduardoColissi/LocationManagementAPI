@@ -33,7 +33,6 @@ model Property {
   neighborhood  String @db.VarChar(160)
   city          String @db.VarChar(160)
   state         String @db.VarChar(160)
-  country       String @db.VarChar(160)
   zip_code      String @db.VarChar(8)
   house         Boolean
   apartment     Boolean
@@ -41,6 +40,7 @@ model Property {
   pet_friendly  Boolean
   bed_linen     Boolean
   towels        Boolean
+  comission     Float
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
   user_id       Int
@@ -81,12 +81,13 @@ model Price {
 
 model Location {
   id     Int @id @default(autoincrement())
+  renter String @db.VarChar(100) 
   start_date DateTime
   end_date DateTime
   price_per_day Float
-  descount Float
-  additional_cost Float
-  observations String @db.VarChar(300)
+  descount Float?
+  additional_cost Float?
+  observations String? @db.VarChar(300)
   total Float
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

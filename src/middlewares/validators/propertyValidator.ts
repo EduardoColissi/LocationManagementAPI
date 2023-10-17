@@ -18,10 +18,6 @@ export const propertyValidator = [
     .isString()
     .isLength({ min: 1 })
     .withMessage("Estado é obrigatório!"),
-  body("country")
-    .isString()
-    .isLength({ min: 1 })
-    .withMessage("País é obrigatório!"),
   body("zip_code")
     .isString()
     .isLength({ min: 1 })
